@@ -1,0 +1,19 @@
+{
+  "name": "webpack-camp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack src/main.js -o dist/bundle.js --mode=development --watch",
+    "build": "webpack src/main.js -o dist/bundle.js --mode=production"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "webpack": "^4.17.2"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.1.0"
+  }
+}
