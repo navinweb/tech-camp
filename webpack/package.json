@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack src/main.js -o dist/bundle.js --mode=development --watch",
-    "build": "webpack src/main.js -o dist/bundle.js --mode=production"
+    "dev": "webpack --mode=development --watch",
+    "build": "webpack"
   },
   "keywords": [],
   "author": "",
