@@ -1,1 +1,3 @@
-alert('main');
+import {notify} from './Notification';
+
+notify('message');
