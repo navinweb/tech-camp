@@ -1,3 +1,3 @@
 export function notify(message) {
-  alert(message);
+  console.log(message);
 }

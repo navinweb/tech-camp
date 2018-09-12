@@ -11,6 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "css-loader": "^1.0.0",
+    "style-loader": "^0.23.0",
     "webpack": "^4.17.2"
   },
   "devDependencies": {
