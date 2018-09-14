@@ -19,5 +19,12 @@ module.exports = {
         loader: "babel-loader"
       }
     ]
+  },
+  optimization: {
+    minimize: true
   }
+}
+
+if(process.env.NODE_ENV === 'production') {
+  module.exports.optimization.minimize = true;
 }
