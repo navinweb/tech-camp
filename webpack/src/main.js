@@ -1,5 +1,5 @@
 import {notify} from './Notification';
-require('./main.css');
+require('./main.scss');
 
 notify('message');
 
