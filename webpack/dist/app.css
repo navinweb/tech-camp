@@ -1,1 +1,1 @@
-body{background-color:red}
+.container{background-color:red;background-image:url(images/img.jpg);box-sizing:content-box;color:#fff;height:100%;margin:0 auto;max-height:400px;max-width:400px;padding:20px;width:100%}

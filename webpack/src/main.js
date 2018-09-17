@@ -5,7 +5,7 @@ notify('message');
 
 class Form {
   constructor() {
-    alert('Yea');
+    console.log('Yea');
   }
 }
 

@@ -4,6 +4,11 @@ var MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
+minimize = false;
+if (process.env.NODE_ENV === 'production') {
+  minimize = true;
+}
+
 module.exports = {
   entry: {
     app: [
@@ -26,6 +31,13 @@ module.exports = {
         ]
       },
       {
+        test: /\.(jpe?g|png|gif)$/,
+        loader: 'file-loader',
+        options: {
+          name: 'images/[name].[ext]'
+        }
+      },
+      {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: "babel-loader"
@@ -41,15 +53,11 @@ module.exports = {
   optimization: {
     minimizer: [
       new UglifyJsPlugin({
-        cache: true,
+        cache: minimize,
         parallel: true,
         sourceMap: true
       }),
       new OptimizeCSSAssetsPlugin({})
     ]
   }
-}
-
-if (process.env.NODE_ENV === 'production') {
-  module.exports.optimization.minimize = true;
 }
