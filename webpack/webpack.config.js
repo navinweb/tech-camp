@@ -1,13 +1,11 @@
-var wepback = require('webpack');
-var path = require('path');
-var MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-
-minimize = false;
-if (process.env.NODE_ENV === 'production') {
-  minimize = true;
-}
+const wepback = require('webpack'),
+  path = require('path'),
+  glob = require('glob'),
+  MiniCssExtractPlugin = require("mini-css-extract-plugin"),
+  UglifyJsPlugin = require("uglifyjs-webpack-plugin"),
+  OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin"),
+  PurifyCSSPlugin = require('purifycss-webpack'),
+  inProduction = (process.env.NODE_ENV === 'production');
 
 module.exports = {
   entry: {
@@ -48,12 +46,16 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "[name].css",
       chunkFilename: "[id].css"
+    }),
+    new PurifyCSSPlugin({
+      paths: glob.sync(path.join(__dirname, 'index.html')),
+      minimize: inProduction
     })
   ],
   optimization: {
     minimizer: [
       new UglifyJsPlugin({
-        cache: minimize,
+        cache: inProduction,
         parallel: true,
         sourceMap: true
       }),
