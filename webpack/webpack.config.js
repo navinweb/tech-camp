@@ -5,18 +5,31 @@ const wepback = require('webpack'),
   UglifyJsPlugin = require("uglifyjs-webpack-plugin"),
   OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin"),
   PurifyCSSPlugin = require('purifycss-webpack'),
-  inProduction = (process.env.NODE_ENV === 'production');
+  inProduction = (process.env.NODE_ENV === 'production'),
+  CleanWebpackPlugin = require('clean-webpack-plugin');
+
+let pathsToClean = [
+  'dist'
+]
+
+// the clean options to use
+let cleanOptions = {
+  root: __dirname,
+  verbose: true,
+  dry: false
+}
 
 module.exports = {
   entry: {
-    app: [
+    main: [
       './src/main.js',
       './src/main.scss',
-    ]
+    ],
+    vendor: ['jquery']
   },
   output: {
     path: path.resolve(__dirname, './dist'),
-    filename: '[name].js'
+    filename: '[name].[chunkhash].js'
   },
   module: {
     rules: [
@@ -43,10 +56,13 @@ module.exports = {
     ]
   },
   plugins: [
+    new CleanWebpackPlugin(pathsToClean, cleanOptions),
+
     new MiniCssExtractPlugin({
       filename: "[name].css",
       chunkFilename: "[id].css"
     }),
+
     new PurifyCSSPlugin({
       paths: glob.sync(path.join(__dirname, 'index.html')),
       minimize: inProduction
