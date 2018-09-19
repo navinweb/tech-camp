@@ -23,6 +23,7 @@
     "babel-loader": "^7.1.5",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
+    "chunkhash-replace-webpack-plugin": "0.0.24",
     "clean-webpack-plugin": "^0.1.19",
     "file-loader": "^2.0.0",
     "jquery": "^3.3.1",

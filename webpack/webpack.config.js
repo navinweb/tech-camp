@@ -7,6 +7,7 @@ const wepback = require('webpack'),
   PurifyCSSPlugin = require('purifycss-webpack'),
   inProduction = (process.env.NODE_ENV === 'production'),
   CleanWebpackPlugin = require('clean-webpack-plugin');
+  const ChunkHashReplacePlugin = require('chunkhash-replace-webpack-plugin');
 
 let pathsToClean = [
   'dist'
@@ -59,13 +60,18 @@ module.exports = {
     new CleanWebpackPlugin(pathsToClean, cleanOptions),
 
     new MiniCssExtractPlugin({
-      filename: "[name].css",
+      filename: "[name].[chunkhash].css",
       chunkFilename: "[id].css"
     }),
 
     new PurifyCSSPlugin({
       paths: glob.sync(path.join(__dirname, 'index.html')),
       minimize: inProduction
+    }),
+
+    new ChunkHashReplacePlugin({
+      src: 'index.html',
+      dest: 'index.html',
     })
   ],
   optimization: {
