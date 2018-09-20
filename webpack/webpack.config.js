@@ -7,7 +7,7 @@ const wepback = require('webpack'),
   PurifyCSSPlugin = require('purifycss-webpack'),
   inProduction = (process.env.NODE_ENV === 'production'),
   CleanWebpackPlugin = require('clean-webpack-plugin');
-  const ChunkHashReplacePlugin = require('chunkhash-replace-webpack-plugin');
+const ChunkHashReplacePlugin = require('chunkhash-replace-webpack-plugin');
 
 let pathsToClean = [
   'dist'
@@ -35,19 +35,32 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.css$/,
+        use: 'css-loader'
+      },
+      {
+        test: /\.(svg|eot|ttf|woff|woff2)$/i,
+        use: 'file-loader'
+      },
+      {
+        test: /\.(jpe?g|png|gif)$/i,
+        loaders: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'images/[name].[hash].[ext]'
+            }
+          },
+          'img-loader'
+        ],
+      },
+      {
         test: /\.s[ac]ss$/,
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
           'sass-loader'
         ]
-      },
-      {
-        test: /\.(jpe?g|png|gif)$/,
-        loader: 'file-loader',
-        options: {
-          name: 'images/[name].[ext]'
-        }
       },
       {
         test: /\.js$/,
@@ -72,7 +85,16 @@ module.exports = {
     new ChunkHashReplacePlugin({
       src: 'index.html',
       dest: 'index.html',
-    })
+    }),
+
+    // function () {
+    //   this.plugin('done', stats => {
+    //     require('fs').writeFileSync(
+    //       path.join(__dirname, 'dist/manifest.json'),
+    //       JSON.stringify(stats.toJson().assetsByChunkName)
+    //     );
+    //   });
+    // }
   ],
   optimization: {
     minimizer: [
