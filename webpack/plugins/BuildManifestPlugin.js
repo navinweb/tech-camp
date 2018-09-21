@@ -21,8 +21,6 @@ BuildManifestPlugin.prototype.apply = function (compiler) {
 
     callback();
   });
-
-  compiler.plugin('done', this.writeManifest);
 }
 
 module.exports = BuildManifestPlugin;
