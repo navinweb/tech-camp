@@ -6,6 +6,7 @@ const wepback = require('webpack'),
   OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin"),
   PurifyCSSPlugin = require('purifycss-webpack'),
   inProduction = (process.env.NODE_ENV === 'production'),
+  BuildManifestPlugin = require('./plugins/BuildManifestPlugin'),
   CleanWebpackPlugin = require('clean-webpack-plugin');
 const ChunkHashReplacePlugin = require('chunkhash-replace-webpack-plugin');
 
@@ -87,14 +88,8 @@ module.exports = {
       dest: 'index.html',
     }),
 
-    // function () {
-    //   this.plugin('done', stats => {
-    //     require('fs').writeFileSync(
-    //       path.join(__dirname, 'dist/manifest.json'),
-    //       JSON.stringify(stats.toJson().assetsByChunkName)
-    //     );
-    //   });
-    // }
+    new BuildManifestPlugin(),
+
   ],
   optimization: {
     minimizer: [
