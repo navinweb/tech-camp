@@ -1,0 +1,12 @@
+{
+    "name": "root/phpunit",
+    "authors": [
+        {
+            "name": "navinweb",
+            "email": "anatoliykirzo@gmail.com"
+        }
+    ],
+    "require": {
+      "phpunit/phpunit": "^6.5"
+    }
+}
